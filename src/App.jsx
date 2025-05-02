@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import Landing from "./pages/Landing";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -18,7 +19,7 @@ const App = () => {
         },
         {
           path: "/landing",
-          element: <h1>Landing Page</h1>
+          element: <Landing />
         },
         {
           path: "/login",
