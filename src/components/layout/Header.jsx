@@ -6,7 +6,7 @@ const Header = () => {
     return (
         <header 
             className="
-            border-b shadow
+            border-b shadow bg-card
             px-6 py-4 flex items-center justify-between
             md:px-16
             "
