@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     }
 
     return (
-        <main className="flex flex-1 flex-col gap-5 justify-center items-center">
+        <main className="flex flex-1 flex-col gap-5 mt-12 md:mt-0 md:justify-center items-center">
             <div className="bg-card rounded p-8 shadow w-full max-w-md">
                 <h1 className="text-2xl md:text-3xl font-semibold mb-3">Forgot Your Password?</h1>
                 <p className="text-sm text-gray-500 mb-5">Enter your email address below, and we’ll send you a link to reset your password.</p>

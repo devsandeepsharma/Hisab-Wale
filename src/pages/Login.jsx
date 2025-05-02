@@ -36,7 +36,7 @@ const Login = () => {
     }
 
     return (
-        <main className="flex flex-1 flex-col gap-5 justify-center items-center">
+        <main className="flex flex-1 flex-col gap-5 mt-12 md:mt-0 md:justify-center items-center">
             <div className="bg-card rounded p-8 shadow w-full max-w-md">
                 <h1 className="text-2xl md:text-3xl font-semibold mb-6">Welcome Back 👋</h1>
                 <Form {...form}>
