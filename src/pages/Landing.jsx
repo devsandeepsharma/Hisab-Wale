@@ -75,7 +75,7 @@ const Landing = () => {
                 flex flex-col justify-center items-center
                 "
             >
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">Track Every Rupee With Ease</h1>
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4 w-2xs md:w-xl">Track Every Rupee With Ease</h1>
                 <p className="text-lg md:text-xl mt-3 text-muted-foreground max-w-xl">
                 Your all-in-one expense tracker to manage budgets, visualize spending, and get AI-powered insights.
                 </p>
@@ -84,6 +84,7 @@ const Landing = () => {
                 </Button>
             </section>
             <section 
+                id="features"
                 className="px-6 py-12 md:px-16 min-h-[calc(100vh-4.25rem)]"
             >
                 <h2 className="text-3xl font-semibold text-center mb-8">Features</h2>
@@ -99,7 +100,7 @@ const Landing = () => {
                     ))}
                 </div>
             </section>         
-            <section className="w-full min-h-screen px-6 py-12 md:px-16 flex flex-col items-center justify-center">
+            <section id="testimonials" className="w-full min-h-screen px-6 py-12 md:px-16 flex flex-col items-center justify-center">
                 <h2 className="text-3xl font-semibold text-center mb-8">What Our Users Say</h2>
                 <div className="w-full max-w-6xl mx-auto space-y-8">
                     <Carousel className="w-full px-2">
