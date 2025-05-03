@@ -12,15 +12,18 @@ const AuthLayout = ({children}) => {
         const checkUserState = async () => {
             try {
                 const user = await AuthService.checkCurrentState();
-                const userData = {
-                    uid: user.uid,
-                    username: user.displayName,
-                    email: user.email,
-                    photoUrl: user.photoUrl,
-                    emailVerified: user.emailVerified
-                }
 
-                dispatch(authActions.login(userData));
+                if(user) {
+                    const userData = {
+                        uid: user.uid,
+                        username: user.displayName,
+                        email: user.email,
+                        photoUrl: user.photoUrl,
+                        emailVerified: user.emailVerified
+                    }
+    
+                    dispatch(authActions.login(userData));
+                }
             } catch (error) {
                 console.error("Error checking authentication state:", error);
             }
