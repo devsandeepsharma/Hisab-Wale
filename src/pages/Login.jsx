@@ -14,9 +14,14 @@ import { Form,
     FormMessage 
 } from "../components/ui/form";
 
+import { AuthService } from "../services/Authentication";
+import { LoaderCircle } from "lucide-react";
+
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const formSchema = z.object({
         email: z.string().email("Invalid email"),
@@ -32,7 +37,20 @@ const Login = () => {
     })
 
     const handleFormSubmit = (data) => {
-        console.log(data);
+        loginUser(data);
+    }
+
+    const loginUser = async ({ email, password }) => {
+        setLoading(true);
+        setError("");
+        try {
+            const user = await AuthService.login(email, password);
+            console.log(user);
+        } catch (error) {
+            setError("Invalid email or password");
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -50,7 +68,7 @@ const Login = () => {
                                     <FormControl>
                                         <Input type="email" placeholder="user@gmail.com" {...field} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage>{error}</FormMessage>
                                 </FormItem>
                             )}
                         />
@@ -77,7 +95,7 @@ const Login = () => {
                                             </Button>
                                         </div>
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage>{error}</FormMessage>
                                 </FormItem>
                             )}
                         />
@@ -89,7 +107,20 @@ const Login = () => {
                                 Forgot password?
                             </Link>
                         </div>
-                        <Button className="w-full cursor-pointer" type="submit">Login</Button>
+                        <Button 
+                            className="w-full cursor-pointer" 
+                            type="submit"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <>
+                                    Logging in 
+                                    <LoaderCircle className="w-4 h-4 animate-spin" />
+                                </>
+                            ): (
+                                "Login"
+                            )}
+                        </Button>
                     </form>
                     <p className="text-center mt-3 text-sm">
                         Don’t have an account yet?{" "} {" "}

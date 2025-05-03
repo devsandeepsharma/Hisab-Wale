@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,10 +14,17 @@ import { Form,
     FormMessage 
 } from "../components/ui/form";
 
+import { AuthService } from "../services/Authentication";
+import { LoaderCircle } from "lucide-react";
+
 const Signup = () => {
+
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const formSchema = z.object({
         email: z.string().email("Invalid email"),
@@ -39,7 +46,24 @@ const Signup = () => {
     })
 
     const handleFormSubmit = (data) => {
-        console.log(data);
+        createNewUser(data);
+    }
+
+    const createNewUser = async ({email, password}) => {
+        setLoading(true);
+        setError("");
+        try {
+            await AuthService.signup(email, password);
+            navigate("/login");
+        } catch (error) {
+            if(error.code === "auth/email-already-in-use") {
+                setError("This email is already registered");
+            } else {
+                setError("Something went wrong. Please try again.");
+            }
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -57,7 +81,7 @@ const Signup = () => {
                                     <FormControl>
                                         <Input type="email" placeholder="user@gmail.com" {...field} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage>{error}</FormMessage>
                                 </FormItem>
                             )}
                         />
@@ -115,7 +139,20 @@ const Signup = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button className="w-full cursor-pointer" type="submit">Signup</Button>
+                        <Button 
+                            className="w-full cursor-pointer" 
+                            type="submit"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <>
+                                    Signing in 
+                                    <LoaderCircle className="h-4 w-4 animate-spin" />
+                                </>
+                            ) : (
+                                "Signup"
+                            )}
+                        </Button>
                     </form>
                     <p className="text-center mt-3 text-sm">
                         Already have an account? {" "}
