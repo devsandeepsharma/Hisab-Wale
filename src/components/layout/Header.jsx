@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Button } from "../ui/button";
-import { Sheet, SheetTrigger, SheetContent, SheetClose } from "../ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetClose, SheetTitle } from "../ui/sheet";
 import { AuthService } from "../../services/Authentication";
 import { authActions } from "../../store/authSlice";
 
@@ -44,6 +44,7 @@ const Header = () => {
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="top">
+                        <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
                         <div className="pt-7"></div>
                         {
                             isAuthenticated ? (

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,9 +16,13 @@ import { Form,
 } from "../components/ui/form";
 
 import { AuthService } from "../services/Authentication";
+import { authActions } from "../store/authSlice";
 import { LoaderCircle } from "lucide-react";
 
 const Login = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -45,7 +50,16 @@ const Login = () => {
         setError("");
         try {
             const user = await AuthService.login(email, password);
-            console.log(user);
+            const userData = {
+                uid: user.uid,
+                username: user.displayName,
+                email: user.email,
+                photoUrl: user.photoUrl,
+                emailVerified: user.emailVerified
+            }
+
+            dispatch(authActions.login(userData));
+            navigate("/");
         } catch (error) {
             setError("Invalid email or password");
         } finally {
