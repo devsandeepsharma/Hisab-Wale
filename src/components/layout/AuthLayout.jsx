@@ -23,6 +23,8 @@ const AuthLayout = ({children}) => {
                     }
     
                     dispatch(authActions.login(userData));
+                } else {
+                    dispatch(authActions.logout());
                 }
             } catch (error) {
                 console.error("Error checking authentication state:", error);

@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Landing from "./pages/Landing";
 import AuthLayout from "./components/layout/AuthLayout";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
+import PublicRoute from "./components/layout/PublicRoute";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -16,27 +18,27 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <Home />
+          element: <ProtectedRoute><Home /></ProtectedRoute>
         },
         {
           path: "/landing",
-          element: <Landing />
+          element: <PublicRoute><Landing /></PublicRoute>
         },
         {
           path: "/login",
-          element: <Login />
+          element: <PublicRoute><Login /></PublicRoute>
         },
         {
           path: "/signup",
-          element: <Signup />
+          element: <PublicRoute><Signup /></PublicRoute>
         },
         {
           path: "/forgot-password",
-          element: <ForgotPassword />
+          element: <PublicRoute><ForgotPassword /></PublicRoute>
         },
         {
           path: "/transactions",
-          element: <h1>Transactions Page</h1>
+          element: <ProtectedRoute><h1>Transactions Page</h1></ProtectedRoute>
         },
       ]
     }
