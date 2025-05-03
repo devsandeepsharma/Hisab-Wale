@@ -1,0 +1,34 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import { AuthService } from "../../services/Authentication";
+import { authActions } from "../../store/authSlice";
+
+const AuthLayout = ({children}) => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const checkUserState = async () => {
+            try {
+                const user = await AuthService.checkCurrentState();
+                const userData = {
+                    uid: user.uid,
+                    username: user.displayName,
+                    email: user.email,
+                    photoUrl: user.photoUrl,
+                    emailVerified: user.emailVerified
+                }
+
+                dispatch(authActions.login(userData));
+            } catch (error) {
+                console.error("Error checking authentication state:", error);
+            }
+        };
+        checkUserState();
+    }, [])
+
+    return <>{ children }</>;
+}
+
+export default AuthLayout;

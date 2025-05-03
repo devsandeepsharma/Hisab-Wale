@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Landing from "./pages/Landing";
+import AuthLayout from "./components/layout/AuthLayout";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -41,7 +42,11 @@ const App = () => {
     }
   ])
 
-  return <RouterProvider router={router} />
+  return (
+    <AuthLayout>
+      <RouterProvider router={router} />
+    </AuthLayout>
+  )
 }
 
 export default App;
