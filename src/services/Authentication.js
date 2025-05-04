@@ -33,16 +33,8 @@ class Authentication {
         return sendEmailVerification(this.auth.currentUser);
     }
 
-    isEmailVerified() {
-        return this.auth.currentUser?.emailVerified || false;
-    }
-
     forgotPassword(email) {
         return sendPasswordResetEmail(this.auth, email);
-    }
-
-    getCurrentUser() {
-        return this.auth.currentUser;
     }
 
     updateUserProfile(fullName, photoURL) {
