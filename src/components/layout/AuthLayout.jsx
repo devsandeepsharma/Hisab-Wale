@@ -18,7 +18,7 @@ const AuthLayout = ({children}) => {
                         uid: user.uid,
                         username: user.displayName,
                         email: user.email,
-                        photoUrl: user.photoUrl,
+                        photoUrl: user.photoURL,
                         emailVerified: user.emailVerified
                     }
     

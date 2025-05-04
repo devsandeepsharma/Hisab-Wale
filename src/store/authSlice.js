@@ -19,6 +19,9 @@ const authSlice = createSlice({
             state.authenticate = false;
             state.user = null;
             state.initialized = true
+        },
+        updateUser (state, action) {
+            state.user = action.payload
         }
     }
 })

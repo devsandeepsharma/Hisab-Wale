@@ -1,29 +1,18 @@
 import { Link, useLocation } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Button } from "../ui/button";
 import { Sheet, SheetTrigger, SheetContent, SheetClose, SheetTitle } from "../ui/sheet";
-import { AuthService } from "../../services/Authentication";
-import { authActions } from "../../store/authSlice";
+import ProfileDropdown from "../profile/ProfileDropdown";
 
 import { Menu } from "lucide-react";
 
 const Header = () => {
 
     const isAuthenticated = useSelector((state) => state.auth.authenticate);
-    const dispatch = useDispatch();
 
     const location = useLocation();
     const path = location.pathname;
-
-    const logoutUser = async () => {
-        try {
-            await AuthService.logout();
-            dispatch(authActions.logout());
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     return (
         <header 
@@ -36,7 +25,8 @@ const Header = () => {
             <Link to={isAuthenticated ? "/" : "/landing"} className="text-xl font-semibold md:text-2xl">Hisab Wale</Link>
             
             {/* Mobile Navigation */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-3">
+                <ProfileDropdown />
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="outline">
@@ -48,15 +38,18 @@ const Header = () => {
                         <div className="pt-7"></div>
                         {
                             isAuthenticated ? (
-                                <ul className="flex flex-col gap-3 px-6 mb-6">
-                                    <li>
-                                        <SheetClose asChild>
-                                            <Button className="w-full" onClick={logoutUser}>
-                                                Logout
-                                            </Button>
-                                        </SheetClose>
-                                    </li>
-                                </ul>
+                                <div className="flex flex-col gap-3 px-6 mb-6">
+                                    <SheetClose asChild>
+                                        <Button className="cursor-pointer" variant="outline">
+                                            Add Transaction
+                                        </Button>
+                                    </SheetClose>
+                                    <SheetClose asChild>
+                                        <Button className="cursor-pointer">
+                                            Subscribe
+                                        </Button>
+                                    </SheetClose>
+                                </div>
                             ) : (
                                 <>
                                     {
@@ -102,13 +95,15 @@ const Header = () => {
             {/* Desktop Navigation */}
             {
                 isAuthenticated ? (
-                    <ul className="hidden md:flex gap-3">
-                        <li>
-                            <Button className="cursor-pointer" onClick={logoutUser}>
-                                Logout
-                            </Button>
-                        </li>
-                    </ul>
+                    <div className="hidden md:flex gap-3 items-center">
+                        <Button className="cursor-pointer" variant="outline">
+                            Add Transaction
+                        </Button>
+                        <Button className="cursor-pointer">
+                            Subscribe
+                        </Button>
+                        <ProfileDropdown />
+                    </div>
                 ): (
                     <>
                         {
