@@ -50,12 +50,13 @@ const Login = () => {
         setError("");
         try {
             const user = await AuthService.login(email, password);
+            
             const userData = {
-                uid: user.uid,
-                username: user.displayName,
-                email: user.email,
-                photoUrl: user.photoUrl,
-                emailVerified: user.emailVerified
+                uid: user.user.uid,            
+                username: user.user.displayName, 
+                email: user.user.email,       
+                photoUrl: user.user.photoURL,  
+                emailVerified: user.user.emailVerified
             }
 
             dispatch(authActions.login(userData));

@@ -26,7 +26,9 @@ const Header = () => {
             
             {/* Mobile Navigation */}
             <div className="md:hidden flex items-center gap-3">
-                <ProfileDropdown />
+                {
+                    isAuthenticated && <ProfileDropdown />
+                }
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="outline">
